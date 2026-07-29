@@ -19,6 +19,13 @@ Currently, every time a user requests a portfolio review, the system reruns the 
 
 ## Week 8 — Reproduction & solution planning
 
+**Reproduction commit link:** [https://github.com/carlog1566/pathreview/commit/b2a878043a61822a479b45e94ae1159a49aedf2b](https://github.com/carlog1566/pathreview/commit/b2a878043a61822a479b45e94ae1159a49aedf2b)
+
+**Reproduction summary:**
+I reproduced the issue by creating two portfolio profiles with identical GitHub usernames and portfolio URLs and generating a review for each. Although the portfolio content was the same, the server logs showed that the ingestion pipeline, agent orchestration, RAG retrieval, and review generation were executed both times. This confirms that the application does not currently reuse previously generated reviews for identical portfolio content.
+
+**PLAN.md link:** [https://github.com/carlog1566/pathreview/blob/feat/32-caching-layer/PLAN.md](https://github.com/carlog1566/pathreview/blob/feat/32-caching-layer/PLAN.md)
+
 ## Issue Reproduction
 
 Reproduced issue #32 by generating reviews for identical portfolio content.
