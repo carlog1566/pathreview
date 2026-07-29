@@ -15,3 +15,29 @@ Currently, every time a user requests a portfolio review, the system reruns the 
 **Setup confirmation:** [x] App runs locally at localhost:5173
 
 **Cohort ledger:** [x] Issue added to cohort ledger
+
+
+## Week 8 — Reproduction & solution planning
+
+## Issue Reproduction
+
+Reproduced issue #32 by generating reviews for identical portfolio content.
+
+### Reproduction Steps
+
+1. Start the application and log in.
+2. Create a new portfolio review with the following information:
+   - GitHub username
+   - Resume PDF
+   - Portfolio URL
+3. Generate a portfolio review.
+4. After the review completes, submit the same portfolio information again and generate another review.
+5. Observe the backend logs during both review requests.
+
+### Observed behavior
+- Agent orchestration executes.
+- RAG retrieval executes.
+- Review generation executes.
+
+### Expected behavior:
+- A cached review should be returned for identical portfolio content instead of rerunning the pipeline.
