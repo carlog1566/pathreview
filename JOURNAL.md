@@ -26,11 +26,11 @@ I reproduced the issue by creating two portfolio profiles with identical GitHub 
 
 **PLAN.md link:** [https://github.com/carlog1566/pathreview/blob/feat/32-caching-layer/PLAN.md](https://github.com/carlog1566/pathreview/blob/feat/32-caching-layer/PLAN.md)
 
-## Issue Reproduction
+### Issue Reproduction
 
 Reproduced issue #32 by generating reviews for identical portfolio content.
 
-### Reproduction Steps
+**Reproduction Steps**
 
 1. Start the application and log in.
 2. Create a new portfolio review with the following information:
@@ -41,10 +41,10 @@ Reproduced issue #32 by generating reviews for identical portfolio content.
 4. After the review completes, submit the same portfolio information again and generate another review.
 5. Observe the backend logs during both review requests.
 
-### Observed behavior
+**Observed behavior**
 - Agent orchestration executes.
 - RAG retrieval executes.
 - Review generation executes.
 
-### Expected behavior:
+**Expected behavior:**
 - A cached review should be returned for identical portfolio content instead of rerunning the pipeline.
