@@ -71,16 +71,26 @@ Need to verify whether the Review model already contains a field for storing a c
 
 ### Check-in 2 (end of week)
 
-**PR link:** [link to your submitted pull request]
+**PR link:** [https://github.com/ascherj/pathreview/pull/981](https://github.com/ascherj/pathreview/pull/981)
 
-**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+**Branch:** feat/32-caching-layer
 
 **What you built:**
-[1–3 sentences summarizing what your fix does and how it works]
+Implemented review result caching to prevent duplicate processing of unchanged
+portfolio submissions. The system generates a deterministic SHA256 hash from
+portfolio data and uses it to identify previously completed reviews, allowing
+cached results to be reused instead of rerunning the ingestion, agent
+orchestration, and RAG pipeline.
 
 **Tests added or updated:**
-[Which test files did you touch? What do they cover?]
+Added pytest coverage in the review service tests:
 
-**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+- Tested that identical portfolio data consistently produces the same profile
+  hash.
+- Tested that changes to portfolio data generate a different profile hash.
+- Tested that `process_review()` correctly uses a cached completed review and
+  restores cached sections and overall score.
 
-**Draft PR feedback received from:** [name or Slack handle, or "none"]
+**Self-review confirmation:** [x] make check passes  [x] make test-unit passes
+
+**Draft PR feedback received from:** none
