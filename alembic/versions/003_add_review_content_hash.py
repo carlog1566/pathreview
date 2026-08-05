@@ -1,7 +1,7 @@
 """Add content_hash to reviews.
 
 Revision ID: 003
-Revises: 002_add_error_message_to_reviews
+Revises: 002
 """
 
 import sqlalchemy as sa
@@ -9,7 +9,7 @@ import sqlalchemy as sa
 from alembic import op  # type: ignore[attr-defined]
 
 revision = "003"
-down_revision = "002_add_error_message_to_reviews"
+down_revision = "002"
 branch_labels = None
 depends_on = None
 
