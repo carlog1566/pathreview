@@ -47,16 +47,53 @@ async def create_review(
 ) -> Review:
     """
     Create a new review with status="pending".
+    Uses cached review if the portfolio was already analyzed.
     """
+
+    # Get profile for hashing
+    stmt = select(Profile).where(Profile.id == profile_id)
+    result = await db.execute(stmt)
+    profile = result.scalars().first()
+
+    if not profile:
+        raise ValueError("Profile not found")
+
+    profile_hash = _compute_profile_hash(profile)
+
+    # Check cache before creating a new review
+    cached_stmt = (
+        select(Review)
+        .where(
+            Review.status == "complete",
+            Review.content_hash == profile_hash,
+        )
+        .order_by(Review.created_at.desc())
+    )
+
+    cached_result = await db.execute(cached_stmt)
+    cached_review = cast(Review | None, cached_result.scalars().first())
+
+    if cached_review:
+        log.info(
+            "review_cache_hit",
+            profile_id=str(profile_id),
+            review_id=str(cached_review.id),
+        )
+        return cached_review
+
+    # No cache found, create new review
     review = Review(
         profile_id=profile_id,
         status="pending",
         sections=None,
         overall_score=None,
+        content_hash=profile_hash,
     )
+
     db.add(review)
     await db.commit()
     await db.refresh(review)
+
     return review
 
 
@@ -157,7 +194,6 @@ async def process_review(
         cached_stmt = (
             select(Review)
             .where(
-                Review.profile_id == profile.id,
                 Review.status == "complete",
                 Review.content_hash == profile_hash,
             )
