@@ -48,3 +48,39 @@ Reproduced issue #32 by generating reviews for identical portfolio content.
 
 **Expected behavior:**
 - A cached review should be returned for identical portfolio content instead of rerunning the pipeline.
+
+
+## Week 9 — Solution building & PR submission
+
+### Check-in 1 (mid-week)
+
+**Current progress:**
+I identified that the review processing workflow in core/services/review_service.py always executes the ingestion pipeline, agent orchestration, and RAG generation regardless of whether an identical portfolio has already been reviewed. I investigated the review pipeline and confirmed that no cache lookup currently exists before processing begins. I also determined the files that will be modified to implement a content hash lookup and review reuse.
+
+**Next steps:**
+- Implement a deterministic content hash for portfolio data.
+- Add a cache lookup before the ingestion pipeline begins.
+- Reuse completed review results when a matching content hash is found.
+- Add or update unit tests to verify cache hits and cache misses.
+- Run make test-unit and make check before opening the pull request.
+
+**Blockers:**
+Need to verify whether the Review model already contains a field for storing a content hash. If not, a database migration will be required.
+
+---
+
+### Check-in 2 (end of week)
+
+**PR link:** [link to your submitted pull request]
+
+**Branch:** [the branch name you worked on, e.g. `fix/123-short-description`]
+
+**What you built:**
+[1–3 sentences summarizing what your fix does and how it works]
+
+**Tests added or updated:**
+[Which test files did you touch? What do they cover?]
+
+**Self-review confirmation:** [ ] make check passes  [ ] make test-unit passes
+
+**Draft PR feedback received from:** [name or Slack handle, or "none"]
