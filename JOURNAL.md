@@ -94,3 +94,61 @@ Added pytest coverage in the review service tests:
 **Self-review confirmation:** [x] make check passes  [x] make test-unit passes
 
 **Draft PR feedback received from:** none
+
+
+## Week 10 — Iteration & reflection
+
+### Reviewer feedback
+
+**Feedback received:** [ ] Yes  [x] No — still awaiting review
+
+**Summary of feedback:**
+No review came in.
+
+**How you responded:**
+N/A
+
+---
+
+### Reflection
+
+**What was harder than you expected?**
+The hardest part was integrating the caching feature into an existing codebase
+without disrupting the existing review workflow. The implementation itself was
+straightforward, but understanding where the review lifecycle happened and
+deciding where the cache logic belonged required more investigation. I had to
+consider whether caching should happen when creating a review or during the
+processing stage, while making sure existing ingestion, agent, and RAG flows
+continued working correctly.
+
+**What did you learn about working in a large codebase?**
+I learned that contributing to an existing codebase requires much more attention
+to existing patterns, assumptions, and architecture compared to building a
+personal project. Small changes can affect multiple parts of the system, so it
+is important to understand how services, models, database queries, and tests
+interact before modifying code. I also learned the importance of writing code
+that fits the project's existing style and conventions rather than only focusing
+on making the feature work.
+
+**How did AI tools help — and where did they fall short?**
+AI tools were most useful for understanding unfamiliar code, identifying where
+to implement changes, improving documentation, and helping debug issues such as
+type checking errors from SQLAlchemy. They helped speed up development by
+suggesting approaches and explaining errors. However, AI could not fully
+understand the project's design decisions or guarantee that an implementation
+matched the expectations of the repository. I still needed to inspect the
+existing code, run tests, review logs, and make decisions about the final
+implementation.
+
+**What would you do differently if you started over?**
+If I started over, I would spend more time planning the cache design before
+writing code. I would define the cache key strategy, expected behavior for cache
+hits and misses, and testing approach earlier. I would also add the tests before
+implementing the feature so the expected behavior was clearer during development.
+
+**What are you most proud of from this module?**
+I am most proud of successfully contributing a feature to an existing project
+and following a real development workflow. Instead of only writing code, I
+created tests, addressed linting and type checking issues, verified behavior
+through logs, and prepared the change in a way that another developer could
+review and maintain.
